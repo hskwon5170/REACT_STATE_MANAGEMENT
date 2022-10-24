@@ -1,10 +1,10 @@
-export function Species({ name, language, averageLifespan }) {
+export function Species(props) {
   return (
     <li>
-      {name}
+      {props.name}
       <ul>
-        <li>language: {language}</li>
-        <li>average lifespan: {averageLifespan}</li>
+        <li>language: {props.language}</li>
+        <li>average lifespan: {props.averageLifespan}</li>
       </ul>
     </li>
   );
