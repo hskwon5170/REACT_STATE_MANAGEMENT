@@ -16,9 +16,19 @@ export function Posts() {
 
   // replace with useQuery
   // fetchPost는 비동기 방식. fetchPost의 데이터가 반환되지 않을 경우 데이터에 할당할 항목을 알수없음
-  const { data } = useQuery("post", fetchPosts);
-  if (!data) return <div />;
+  const { data, isError, error, isLoading } = useQuery("post", fetchPosts);
+  // Loading이 모두 끝나면 isLoading은 false로 바뀌고 본문이 보여지게됨
+  if (isLoading) return <h3>Loading...</h3>;
+  if (isError)
+    return (
+      <div>
+        <h3>Oops, something went wrong</h3>
+        <p>{error.toString()}</p>
+      </div>
+    );
 
+  // isFetching 비동기 쿼리가 해결되지 않았음을 의미함
+  // isLoading 데이터를 가져오는 중이고, 캐싱된 데이터도 없음을 의미함
   return (
     <>
       <ul>
