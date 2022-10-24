@@ -6,6 +6,7 @@ const maxPostPage = 10;
 
 async function fetchPosts(pageNum) {
   const response = await fetch(
+    // "https://jsonplaceholder.typicode.com/posts?_limit=10&_page=10""
     `https://jsonplaceholder.typicode.com/posts?_limit=10&_page=${pageNum}`
   );
   return response.json();
@@ -27,14 +28,15 @@ export function Posts() {
   useEffect(() => {
     if (currentPage < maxPostPage) {
       const nextPage = currentPage + 1;
-      queryClient.prefetchQuery(["posts", nextPage], () =>
-        fetchPosts(nextPage)
+      queryClient.prefetchQuery(
+        ["posts", nextPage],
+        () => fetchPosts(nextPage)
+        // 다음페이지 prefetching (useQuery와 동일하게 쿼리키, 함수 작성)
       );
     }
   }, [currentPage, queryClient]);
   // 의존성 배열에 currentPage를 넣어 현재 페이지가 변경될 때마다 함수 실행하기
 
-  // replace with useQuery
   // fetchPost는 비동기 방식. fetchPost의 데이터가 반환되지 않을 경우 데이터에 할당할 항목을 알수없음
   const { data, isError, error, isLoading } = useQuery(
     ["posts", currentPage],
