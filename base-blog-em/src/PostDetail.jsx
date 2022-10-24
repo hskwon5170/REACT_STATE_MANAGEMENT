@@ -24,6 +24,7 @@ async function updatePost(postId) {
 
 export function PostDetail({ post }) {
   // replace with useQuery
+  // 쿼리키가 의존성배열 역할을 함!, commentssssss 이름의 post.id가 바뀌면 리렌더링한다
   const { data, isError, error, isLoading } = useQuery(
     ["commentsssssss", post.id],
     () => fetchComments(post.id)
