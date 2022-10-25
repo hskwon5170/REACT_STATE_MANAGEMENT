@@ -73,8 +73,13 @@ export function useAppointments(): UseAppointments {
   //       monthYear.month
 
   const fallback = {};
+  // 매월 새로운 쿼리키를 갖고 있어야 trigger to refetch가 가능해짐!!
+  // 의존성 배열로 쿼리키를 안써주면 모든 useQuery마다 쿼리키(queryKey.appointments)가 동일하므로
+  // refetch가 이뤄지지 않는다.
+  // 데이터가 변경될 경우, 쿼리키도 변경되도록 해야함
   const { data: appointments = fallback } = useQuery(
-    queryKeys.appointments,
+    [queryKeys.appointments, monthYear.year, monthYear.month],
+    // monthYear.year, monthYear.month에 의존[] 해서 값이 변경되어야함
     () => getAppointments(monthYear.year, monthYear.month),
   );
 
