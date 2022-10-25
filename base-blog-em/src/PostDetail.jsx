@@ -1,7 +1,7 @@
 import { useQuery, useMutation } from "react-query";
-async function fetchComments(postId) {
+async function fetchComments(qqq) {
   const response = await fetch(
-    `https://jsonplaceholder.typicode.com/comments?postId=${postId}`
+    `https://jsonplaceholder.typicode.com/comments?postId=${qqq}`
   );
   return response.json();
 }
@@ -29,8 +29,10 @@ export function PostDetail({ post }) {
     ["commentsssssss", post.id],
     () => fetchComments(post.id)
   );
+  console.log("dataaaaaa", data);
 
   const deleteMutation = useMutation(postId => deletePost(postId));
+  const updateMutation = useMutation(postId => updatePost(postId));
 
   if (isLoading) return <h3>로딩중입니다. 잠시만 기다려주세요</h3>;
   if (isError)
@@ -53,7 +55,9 @@ export function PostDetail({ post }) {
       {deleteMutation.isSuccess && (
         <p style={{ color: "green" }}>포스트가 삭제되었습니다!</p>
       )}
-      <button>Update title</button>
+      <button onClick={() => updateMutation.mutate(post.id)}>
+        Update title
+      </button>
       <p>{post.body}</p>
       <h4>Comments</h4>
       {data.map(comment => (
