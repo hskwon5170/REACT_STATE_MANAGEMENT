@@ -48,7 +48,7 @@ export function Calendar(): ReactElement {
           width="48"
           position="absolute"
           right="10px"
-          checked={!showAll}
+          checked={!showAll} // showAll이 참이면 체크된 상태로 표시
           defaultIsChecked
           onChange={() => setShowAll((prevValue) => !prevValue)}
         >
