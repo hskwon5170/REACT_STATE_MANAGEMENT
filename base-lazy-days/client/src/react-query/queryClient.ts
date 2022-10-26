@@ -20,7 +20,7 @@ function queryErrorHandler(error: unknown): void {
 export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      // !refetch를 제한하는 설정들임!
+      // refetch를 제한하는 설정들임!
       onError: queryErrorHandler,
       staleTime: 600000, // 10 minutes
       cacheTime: 900000, // 15 minutes
